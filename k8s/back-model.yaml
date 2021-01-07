@@ -1,0 +1,41 @@
+ 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-back-models-deployment
+  labels:
+    app: api-back-models
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-back-models
+  template:
+    metadata:
+      labels:
+        app: api-back-models
+    spec:
+      containers:
+      - name: api-back-models-deployment
+        image: mycluster.azurecr.io/back-models
+        ports:
+        - containerPort: 3002
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-back-models-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: api-back-models
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3002
+    
+
+
+
+

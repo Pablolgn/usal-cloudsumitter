@@ -1,0 +1,40 @@
+ 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-back-optimization-deployment
+  labels:
+    app: api-back-optimization
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-back-optimization
+  template:
+    metadata:
+      labels:
+        app: api-back-optimization
+    spec:
+      containers:
+      - name: api-back-optimization-deployment
+        image: mycluster.azurecr.io/back-optim
+        ports:
+        - containerPort: 3003
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-back-optimization-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: api-back-optimization
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3003
+    
+
+
+
+
