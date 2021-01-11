@@ -1,4 +1,4 @@
-module communication
+module github.com/Pablolgn/usal-cloudsumitter/backend/communication
 
 go 1.14
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/Pablolgn/usal-cloudsubmitter/backend/optimization/server"
+	"github.com/Pablolgn/usal-cloudsumitter/backend/optimization/server"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module optimization
+module github.com/Pablolgn/usal-cloudsumitter/backend/optimization
 
 go 1.14
 

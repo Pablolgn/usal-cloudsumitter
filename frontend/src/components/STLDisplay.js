@@ -36,6 +36,7 @@
 		function deleteid(){
 			setaux([])
 			setbutton(false)
+			props.closeD()
 		}
 
 		function changeHandler(color){
@@ -65,8 +66,8 @@
 				{aux.map(auxModel=>
 					<STLViewer
 					key={auxModel.id+256}
-					width={800}
-					height={320}
+					width={props.size*2}
+					height={props.size-80}
 					sceneClassName="test-scene"
 					file={auxModel}
 					className="stl"

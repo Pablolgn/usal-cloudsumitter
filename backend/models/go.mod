@@ -1,4 +1,4 @@
-module gitlab.com/Pablolgn/usal-cloudsubmitter/backend/models
+module github.com/Pablolgn/usal-cloudsumitter/backend/models
 
 go 1.14
 

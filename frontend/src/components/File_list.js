@@ -3,7 +3,7 @@ import React, { useState , useEffect } from 'react';
 import axios from 'axios';
   //material-ui
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton, Grid, Checkbox, Button} from '@material-ui/core';
+import { IconButton, Grid, Checkbox, Button, Collapse} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
   //table
@@ -22,6 +22,7 @@ import LaunchIcon from '@material-ui/icons/Launch';
 //components
 import State from './State'
 import Preview from './Preview';
+import STLDisplay from './STLDisplay';
 
 //Dialog
 import Dialog from '@material-ui/core/Dialog';
@@ -64,13 +65,14 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(5),
   },
   model: {
-    margin: theme.spacing(2),
+    marginLeft: theme.spacing(15),
+    marginTop: theme.spacing(4),
   },
   label1: {
     marginTop: theme.spacing(5),
   },
   margin: {
-    margin: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
   label2: {
     marginTop: theme.spacing(3),
@@ -95,6 +97,8 @@ function FileList() {
   //states
   const [models, setModels] = useState([]);
   const [aux, setAux] = useState([]);
+  const [auxModel, setAuxmodel] = useState([]);
+  const [open, setOpen] = useState(false);
   const [count, setCount] = useState(0);
   const [state, setState] = useState([]);
   const [printMess, setPrintMess] = useState(false);
@@ -181,6 +185,10 @@ function FileList() {
     setPrintMess(false)
   }
 
+  function handlerCloseDisplay(){
+    setOpen(false)
+  }
+
   //function to optimize the .stl models 
   function handlerOptimize(){
     var arrOfModels = []
@@ -200,6 +208,18 @@ function FileList() {
 
 
   }
+    //function for display the STL viewer
+    function handlerDisplay(){
+
+      if(count === 1){
+        for (let m of models) {
+          if(m.sel === true){
+              setAuxmodel([m.file]);
+              setOpen(true);
+          }
+        }
+      }
+    }
 
   //Evalue the model and send it to print if it's one, if not , show a message
   function handlerPrint(){
@@ -328,7 +348,7 @@ function FileList() {
           <Grid container direction="row" className={classes.buttons} >
             <Tooltip title="Display">   
               <span>        
-                <IconButton disabled={count!==1}  color="primary" aria-label="Display" >
+                <IconButton disabled={count!==1}  color="primary" aria-label="Display" onClick={handlerDisplay}>
                   <LaunchIcon fontSize="large"/>
                 </IconButton>
               </span>    
@@ -347,8 +367,16 @@ function FileList() {
             </Tooltip>  
             </Grid>
       </Grid>
-      <Grid item xs={8}>    
+      <Grid item xs={8}>  
+      <Collapse in={!open}>
           <State start={print} model={aux} state={state}/>
+      </Collapse> 
+      <Collapse in={open} className={classes.model}> 
+        {auxModel.map(auxM=>
+                  <STLDisplay file={auxM} closeD={handlerCloseDisplay} size={350} key={auxM.id+273}/>
+              )
+        } 
+      </Collapse>
       </Grid>
     </Grid>
 

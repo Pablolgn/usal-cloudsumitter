@@ -131,6 +131,9 @@ function Upload() {
     setModels(items)
   }
 
+  function handlerCloseDisplay(){
+    setOpen(false)
+  }
 
   //function for upload models to server
   function handlerServer(){
@@ -150,6 +153,8 @@ function Upload() {
     setSend(true)
   }
   }
+
+
 
   //function for display the STL viewer
   function handlerDisplay(){
@@ -297,7 +302,7 @@ function Upload() {
 
           <div className={classes.model} >  
             {aux.map(auxModel=>
-                <STLDisplay file={auxModel} size={400} key={auxModel.id+128}/>
+                <STLDisplay file={auxModel} closeD={handlerCloseDisplay} size={400} key={auxModel.id+128}/>
             )
             } 
           </div>
